@@ -14,3 +14,33 @@ public:
         return -1;
     }
 };
+
+
+---------------------------------------------------------------------------
+
+
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+    int len = nums.size();
+    int i = 0;
+    while(i<len){
+        if(nums[i] != i)
+        {
+            if(nums[nums[i]] == nums[i])
+            {
+                return nums[i];
+            }else{
+                int temp = nums[nums[i]];
+                nums[nums[i]]=nums[i];
+                nums[i]=temp;
+            }
+        }else{
+            i++;
+        }
+    }
+    return -1;
+    
+   }
+
+};
