@@ -1,0 +1,68 @@
+class Solution {
+public:
+    string replaceSpace(string s) {
+        string res;
+        for(int i=0; i<s.size(); i++)
+        {
+            if(s[i] == ' ')
+            {
+                res.append("%20"); //string.append(string) 向后追加字符串
+            }
+            else
+            {
+                res.push_back(s[i]); //string.push_bach(char) 向后追加字符
+            }
+        }
+        return res;
+    }
+};
+
+
+1. 字符串可以通过s[i]数组的方式来遍历
+2. 字符串的长度可以通过s.size()函数来获取
+3. 向字符串后面追加字符串用s.append()
+4. 向字符串后面追加字符用s.push_back()
+
+
+
+-----------------------------------------------------------------------------------------
+
+
+class Solution {
+public:
+    string replaceSpace(string s) {
+        //通过先统计一次空格数来实现原地交换
+        int origin = s.size();
+        int count = 0;
+        for(int i=0; i<origin; i++)
+        {
+            if(s[i] == ' ' )
+            {
+                count++;
+            }
+        }
+
+        s.resize(origin + 2*count);
+        int new_size = s.size();
+        for(int j=origin-1, i=new_size-1; j<i; j--, i--)
+        {
+            if(s[j] != ' ')
+            {
+                s[i] = s[j];
+            }
+            else
+            {
+                s[i] = '0';
+                s[i-1] = '2';
+                s[i-2] = '%';
+                i = i-2;
+            }
+        }
+        return s;
+    }
+};
+
+
+1. string.resize() 用来改变string的size，可大可小
+2. string.reserve() 用来扩容字符串，会让容量变成大于等于参数的值
+3. 中止条件是j<i 因为一旦j==i, 说明不再会有空格出现
