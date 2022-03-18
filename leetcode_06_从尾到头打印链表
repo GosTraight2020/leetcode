@@ -64,5 +64,29 @@ public:
             pop()弹出  无返回值
             top()返回栈顶元素
            
+###################################方法三 vector.insert()#########################################
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        vector<int> res;
+        ListNode* p = head;
 
+        while(p != NULL)
+        {
+            res.insert(res.begin(), p->val);
+            p = p->next;
+        }
+        return res;
+    }
+};
 
+1. vector.insert(vector.begin(), val) 在向量头插入指定值
+    vector.insert(vector.end(), val) 在向量尾插入指定值
