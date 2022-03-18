@@ -25,3 +25,44 @@ public:
 
 1. vector本质上是一个可以动态管理内存的数组
 2. vector<int>::iterator it = res.begin();
+
+
+#######################################方法二：用栈#######################################################
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        stack<int> s;
+        vector<int> res;
+        ListNode* p = head;
+
+        while(p != NULL)
+        {
+            s.push(p->val);
+            p=p->next;
+        }
+        while(!s.empty())
+        {
+            int temp = s.top();
+            res.push_back(temp);
+            s.pop();
+        }
+        return res;
+
+    }
+};
+
+
+1. stack : push(item)压入
+            pop()弹出  无返回值
+            top()返回栈顶元素
+           
+
+
