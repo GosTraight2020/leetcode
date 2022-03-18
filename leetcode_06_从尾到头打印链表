@@ -1,0 +1,27 @@
+####################################方法一：回溯########################################################
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+    void method(vector<int>& res, ListNode* head)
+    {
+        if(head == NULL) return;
+        method(res, head->next);
+        res.push_back(head->val);        
+    }
+    vector<int> reversePrint(ListNode* head) {
+        vector<int> res;
+        method(res, head);
+        return res;
+    }
+};
+
+1. vector本质上是一个可以动态管理内存的数组
+2. vector<int>::iterator it = res.begin();
