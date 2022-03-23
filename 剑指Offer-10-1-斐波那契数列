@@ -21,24 +21,24 @@ public:
 ##################################################
 class Solution {
 public:
-    vector<vector<long>> matmul(<vector<vector<long>>& a, vector<vector<long>>& b){
+    vector<vector<long>> matmul(vector<vector<long>>& a, vector<vector<long>>& b){
         int m=a.size(), n=b[0].size(), l=a[0].size();
         vector<vector<long>> c(m, vector<long>(n, 0));
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 for(int k=0; k<l; k++){
-                    c[i][j] = (c[i][j] + a[i][k] * b[k][n]) % 1000000007;
+                    c[i][j] = (c[i][j] + a[i][k] * b[k][j]) % 1000000007;
                 }
             }
         }
         return c;
     }
     
-    vector<vector<long>> pow(vector<vector<long>> a, int n){
-        vector<vector<long>> res{{1, 0}, {1, 0}};
+    vector<vector<long>> pow(vector<vector<long>>& a, int n){
+        vector<vector<long>> res{{1, 0}, {0, 1}};
         while(n>0){
             if(n&1) res = matmul(a, res);
-            n =>> 1;
+            n >>= 1;
             a = matmul(a, a);
         }
         return res;
@@ -47,15 +47,16 @@ public:
     
     int fib(int n) {
         if(n<2) return n;
-        vector<vector<long> q{{1, 1}, {1, 0}};
-        vector<vector<long> res = pow(q, n-1);
+        vector<vector<long>> q{{1, 1}, {1, 0}};
+        vector<vector<long>> res = pow(q, n-1);
         return res[0][0];
     }
+    
+};
     ###############################################
     1. 快速幂的写法
     2. 矩阵乘法的写法
     3. vector的初始化方法 vector<int> a{3, 7} 3个7
                          vector<int> a{3}    3个值，系统来初始化
                          vector<int> a{{1, 0}, {0, 1}}
-    
-};
+
