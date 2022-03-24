@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minArray(vector<int>& numbers) {
+        int len = numbers.size();
+        if(len == 1) return numbers[0];
+        if(len == 2) return numbers[0]<numbers[1]?numbers[0]:numbers[1];
+        int p=0, q=1;
+        while(q<len){
+            if(numbers[p] > numbers[q]) return numbers[q];
+            p++;
+            q++;
+        }
+        return numbers[0];
+    }
+};
+
+##################################################
+1. 遍历数组 找到元素值突然减小的拐点
+2. 若没有拐点，则返回数组中第一个元素
