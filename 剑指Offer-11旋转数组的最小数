@@ -17,3 +17,23 @@ public:
 ##################################################
 1. 遍历数组 找到元素值突然减小的拐点
 2. 若没有拐点，则返回数组中第一个元素
+
+class Solution {
+public:
+    int minArray(vector<int>& numbers) {
+        int len = numbers.size();
+        int left = 0, right = len-1;
+        while(left < right){
+            int mid = left + (right - left)/2;
+            if(numbers[mid] > numbers[right]) left = mid+1;
+            else if(numbers[mid] < numbers[right]) right = mid;
+            else right=right-1;
+        }
+        return numbers[left];
+    }
+};
+
+#####################方法二  二分查找############################
+如果Mid 比right 大 说明最小值在mid和right之间 此时mid一定不是最小值
+如果mid比right小， 说明最小值在left和mid之前 此时mid有可能是最小值
+如果mid等于rihgt， 则让right向前移动一位，找到第一个不等于mid的left， 此时mid由于有多个 所以肯定不是最小值
