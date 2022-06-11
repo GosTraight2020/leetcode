@@ -1,0 +1,62 @@
+
+
+
+//处理输入的字符串
+
+// 用队列和map记录具体的情况 ]
+//     queue<pair<string, int>>    记录顺序
+//     map<pair<string, int>, int>  记录出现次数
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    string s;
+    string col;
+    pair<string, string> p;
+    queue<pair<string, string>> que;
+    unordered_map<string, int> mp;
+    
+    while(cin >> s >> col){
+        istringstream iss(s);
+        string seg;
+        // seg 为文件名
+        while(getline(iss, seg, '\\'));
+        // 如果文件名长度超过16 保留后面16位
+        if(seg.size() > 16) seg = seg.substr(seg.size()-16);
+
+        //先看之前有没有出现过 
+        string query = seg + "_" + col;
+        
+//         cout << query <<endl;
+        // 如果之前出现过 只记录就行了
+        if (mp.find(query) != mp.end()){
+            mp[query] ++;
+        }
+        //如果没出现过  先判断对列是不是大于8 
+        else{
+            if(que.size() >= 8){
+                que.pop();
+            }
+            que.push(pair<string, string>(seg, col));
+            mp[query] ++;
+        }
+        
+    }
+    int len = que.size();
+    for(int i=0; i<len; i++){
+        auto p = que.front();
+        string file = p.first;
+        string col = p.second;
+        string comb = file+"_"+col;
+        cout << p.first << " " << p.second << " " << mp[comb] <<endl;
+        que.pop();
+        
+    }
+        
+    
+    return 0;
+}
